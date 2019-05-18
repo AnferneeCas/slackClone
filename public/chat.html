@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="./styles.css">
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form id="message-form">
+                <div class="col-sm-10">
+                    <input type="text" placeholder="Enter Message" id="user-message">
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" value="Send!" class="btn btn-primary">
+                </div>
+            </form>
+            <ul id="messages">
+
+            </ul>
+        </div>        
+    </div>
+
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+
+
+<script>
+const socket = io("http://localhost:3000");
+socket.on("messageFromServer",function(dataFromServer){
+    console.log(dataFromServer);
+    socket.emit('dataToServer',{data:"Data from the CLient"});
+
+});
+
+document.querySelector('#message-form').addEventListener('submit',function(event){
+    event.preventDefault();
+    const newMessage= document.querySelector('#user-message').value;
+    socket.emit('newMessageToServer',{text:newMessage});
+});
+
+
+socket.on('messageToClients',function(msg){
+    console.log(msg);
+    document.querySelector('#messages').innerHTML +=`<li>${msg.text}</li>`;
+});
+</script>
