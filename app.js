@@ -13,8 +13,9 @@ io.on('connection',function(socket){
 	socket.on('messageToServer',function(dataFromClient){
 		console.log(dataFromClient);
 	})
+});
 
-	socket.on('newMessageToServer',function(msg){
-		io.emit('messageToClients',{text:msg.text});
-	});
+io.of('/admin').on('connection',function(socket){
+	console.log("SOmeone connected to the admin anesmapce;")
+	io.of('/admin').emit('welcome',"welcome to the admin channel")
 });
