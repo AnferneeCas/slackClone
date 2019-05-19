@@ -1,21 +1,19 @@
 const socket = io("http://localhost:3000");
-const socket2= io("http://localhost:3000/wiki");
-const socket3= io("http://localhost:3000/mozilla");
-const socket4= io("http://localhost:3000/linux");
 
+socket.on('nslist',function(nsData){
+    let namespacesDiv = document.querySelector('.namespaces');
+    namespacesDiv.innerHTML ="";
+    nsData.forEach((ns) => {
+        namespacesDiv.innerHTML +=`<div class="namespace" ns=${ns.endpoint}><img src="${ns.img}" /></div>`
+    });
 
-socket.on("messageFromServer",function(dataFromServer){
-    console.log(dataFromServer);
-    socket.emit('dataToServer',{data:"Data from the CLient"});
-
+    console.log(document.querySelectorAll('.namespace'));
+   Array.from(document.getElementsByClassName('namespace')).forEach((elem)=>{
+        elem.addEventListener('click',function(e){
+            const nsEndpoint = elem.getAttribute('ns');
+            console.log(``);
+        });
+    });
+    joinNs("mozilla");
 });
 
-socket2.on('welcome',function(dataFromServer){
-    console.log(dataFromServer);
-});
-
-document.querySelector('#message-form').addEventListener('submit',function(event){
-    event.preventDefault();
-    const newMessage= document.querySelector('#user-message').value;
-    socket.emit('newMessageToServer',{text:newMessage});
-});
