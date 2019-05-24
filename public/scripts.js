@@ -1,4 +1,11 @@
-const socket = io("http://localhost:3000");
+const username = prompt("Type in your username");
+const socket = io("http://localhost:3000",{
+    query:{
+        username
+    }
+});
+
+
 
 let nsSocket="";
 socket.on('nslist',function(nsData){
