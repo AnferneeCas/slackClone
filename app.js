@@ -11,6 +11,7 @@ const expressServer = app.listen(3000);
 const io=socketio(expressServer);
 
 io.on('connection',function(socket){
+	
 	let nsData = namespaces.map((ns)=>{
 		return {
 			img: ns.img,
