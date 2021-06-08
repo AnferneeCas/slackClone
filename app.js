@@ -8,6 +8,11 @@ let namespaces = require("./data/namespaces")
 app.use(express.static(__dirname+'/public'));
 
 const expressServer = app.listen(3000);
+app.get('/',function(req,res){
+	res.sendFile('public/chat.html',{root: __dirname })
+});
+
+console.log('running')
 const io=socketio(expressServer);
 
 io.on('connection',function(socket){
@@ -25,19 +30,19 @@ io.on('connection',function(socket){
 namespaces.forEach((namespace)=>{
 	io.of(namespace.endpoint).on('connection',function(nsSocket){
 		const username = nsSocket.handshake.query.username;
-		console.log(`${nsSocket.id}`+ " has join "+ `${namespace.endpoint}`);
+
 		nsSocket.emit("nsRoomLoad",namespace.rooms);
 		
 		nsSocket.on('joinRoom',function(roomToJoin,numberOfUsersCallback){
 			const roomToLeave = Object.keys(nsSocket.rooms)[1];
 			
+			if(roomToJoin != roomToLeave){
+				nsSocket.leave(roomToLeave);
+				updateUsersInRoom(namespace,roomToLeave);
+				nsSocket.join(roomToJoin);
+			}
 			
-			nsSocket.leave(roomToLeave);
-			updateUsersInRoom(namespace,roomToLeave);
-			nsSocket.join(roomToJoin);
-			
-			//console.log(nsSocket.rooms);
-			console.log(roomToJoin);
+		
 			io.of(namespace.endpoint).in(roomToJoin).clients(function(error,clients){
 				numberOfUsersCallback(clients.length);
 			});
@@ -45,7 +50,6 @@ namespaces.forEach((namespace)=>{
 			var nsRoom = namespace.rooms.find(function(room){
 				return room.roomtitle===roomToJoin;
 			})
-			
 			nsSocket.emit('historyCatchUp',nsRoom.history);
 			updateUsersInRoom(namespace,roomToJoin);
 
@@ -64,10 +68,12 @@ namespaces.forEach((namespace)=>{
 			};
 			const roomTitle = Object.keys(nsSocket.rooms)[1];
 			
+		
+
 			var nsRoom = namespace.rooms.find(function(room){
 				return room.roomtitle===roomTitle;
 			})
-			console.log(nsRoom);
+	
 			nsRoom.addMessage(fullMsg);
 			io.of(namespace.endpoint).to(roomTitle).emit('messageToClients',fullMsg);
 		});

@@ -16,7 +16,7 @@
         </div>
         <div class="chat-panel col-sm-9">
             <div class="room-header row col-6">
-                <div class="col-sm-3"><span class="curr-room-text">Current Room</span> <span class="curr-room-num-users">Users <span class="glyphicon glyphicon-user"></span></span></div>
+                <div class="col-sm-6"><span class="curr-room-text">Current Room</span> <span class="curr-room-num-users">Users <span class="glyphicon glyphicon-user"></span></span></div>
                 <div class="col-sm-3 search pull-right">
                         <span class="glyphicon glyphicon-search"></span>
                     <input type="text" id="search-box" placeholder="Search" />
@@ -25,14 +25,15 @@
             <div class="message-form">
                 <form id="user-input">
                     <div class="col-sm-12">
-                        <input id="user-message" type="text" placeholder="Enter your message" />
+                        <input id="user-message-input" type="text" placeholder="Enter your message" />
                     </div>
                     <!-- <div class="col-sm-2">
                         <input class="btn btn-primary" type="submit" value="send" />
                     </div> -->
                 </form>
             </div>
-            <ul id="messages" class="col-sm-12">
+            <ul id="messages" class="col-sm-12 h-100" style="height: calc(100% - 94px);
+            overflow-x: hidden;">
                
             </ul>
         </div>

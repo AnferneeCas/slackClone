@@ -1,15 +1,17 @@
 function joinNs(endpoint){
 if(nsSocket){
     nsSocket.close();
-    console.log('socket closed');
+
     //remove eventLIstener befor its added again
     document.querySelector('#user-input').removeEventListener('submit',formSubmission);
 }
 
- nsSocket = io(`http://localhost:3000${endpoint}`);
+ nsSocket = io(`http://10.0.0.103:3000/${endpoint}`,{ query:{
+    username
+}});
 
 nsSocket.on('nsRoomLoad',function(nsRooms){
-    console.log(nsRooms);
+
     let roomList = document.querySelector(".room-list");
     roomList.innerHTML="";
     nsRooms.forEach((room)=>{
@@ -35,7 +37,7 @@ nsSocket.on('nsRoomLoad',function(nsRooms){
 
 
 nsSocket.on('messageToClients',function(msg){
-    console.log(msg);
+
     const newMsg = buildHTML(msg);
     document.querySelector('#messages').innerHTML +=newMsg;
    
@@ -47,16 +49,27 @@ document.querySelector('.message-form').addEventListener('submit',formSubmission
 
 function formSubmission(event){
     event.preventDefault();
-    const newMessage= document.querySelector('#user-message').value;
+    var input = document.querySelector('#user-message-input');
+    const newMessage= input.value;
     nsSocket.emit('newMessageToServer',{text:newMessage});
+    input.value='';
+
+    const messagesUl = document.querySelector('#messages');
+
+    // history.forEach(function(msg){
+    //     const newMessage = buildHTML(msg);
+    //     const currentMessage = messagesUl.innerHTML;
+    //     messagesUl.innerHTML = currentMessage+newMessage;
+    // });
+    messagesUl.scrollTo(0,messagesUl.scrollHeight);
 };
 
 function buildHTML(msg){
     const convertedDate = new Date(msg.time).toLocaleDateString();
    const newHTML= `
-   <li>
-   <div class="user-image">
-   <img src="https://via.placeholder.com/30" />
+   <li class="message-wrapper">
+   <div class="user-image" >
+   <img style="width:30px; height:30px" src="https://www.automotiveone.com/wp-content/uploads/2019/02/placeholder-user-image.jpg" />
 </div>
 <div class="user-message">
    <div class="user-name-time">${msg.username} <span>${convertedDate}</span></div>
