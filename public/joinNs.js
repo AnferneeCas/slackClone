@@ -7,11 +7,12 @@ function joinNs(endpoint) {
       .querySelector("#user-input")
       .removeEventListener("submit", formSubmission);
   }
-  nsSocket = io(`http://www.slackclone.anferneecastillo.com/${endpoint}`, {
+  nsSocket = io(`http://www.slackclone.anferneecastillo.com${endpoint}`, {
     query: {
       username,
     },
   });
+  console.log(endpoint, nsSocket);
 
   nsSocket.on("nsRoomLoad", function (nsRooms) {
     let roomList = document.querySelector(".room-list");

@@ -1,5 +1,5 @@
 const username = prompt("Type in your username");
-const socket = io("http://www.slackclone.anferneecastillo.com", {
+const socket = io("http://www.slackclone.anferneecastillo.com/", {
   query: {
     username,
   },
