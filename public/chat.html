@@ -1,6 +1,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
     <title>Slack Clone By Anfernee C.</title>
     <meta name="description" content="Slack Clone By Anfernee C." />
@@ -8,72 +10,212 @@
 
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" type="text/css" href="./styles.css" />
   </head>
 
   <body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-1 namespaces">
-          <div class="namespace" ns="/wiki">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/103px-Wikipedia-logo-v2.svg.png"
-            />
-          </div>
-          <div class="namespace" ns="/mozilla">
-            <img
-              src="https://www.mozilla.org/media/img/logos/firefox/logo-quantum.9c5e96634f92.png"
-            />
-          </div>
-          <div class="namespace" ns="/linux">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"
-            />
-          </div>
-        </div>
-        <div class="col-sm-2 rooms">
-          <h3>Rooms</h3>
-          <ul class="room-list"></ul>
-        </div>
-        <div class="chat-panel col-sm-9">
-          <div class="room-header row col-6">
-            <div class="col-sm-6">
-              <span class="curr-room-text">Current Room</span>
-              <span class="curr-room-num-users"
-                >Users <span class="glyphicon glyphicon-user"></span
-              ></span>
+      <div class="row h-100">
+        <div class="col-12 col-md-6 col-lg-2 h-100 sidemenu">
+          <div class="row sidemenu">
+            <div class="col-12 col-md-4" style="background-color: #282c34">
+              <div class="row namespaces"></div>
             </div>
-            <div class="col-sm-3 search pull-right">
-              <span class="glyphicon glyphicon-search"></span>
-              <input type="text" id="search-box" placeholder="Search" />
+            <div class="col-md-8 col-12 rooms w-100">
+              <h3 class="text-center">Rooms</h3>
+              <ul class="room-list row text-center p-0"></ul>
             </div>
           </div>
-          <div class="message-form">
-            <form id="user-input">
-              <div class="col-sm-12">
-                <input
-                  id="user-message-input"
-                  type="text"
-                  placeholder="Enter your message"
-                />
+        </div>
+
+        <div
+          class="col-md-6 col-12 col-lg-10 h-100 chat-content"
+          style="background-color: green"
+        >
+          <div class="row h-100">
+            <div class="chat-panel col-12">
+              <div class="room-header row h-100">
+                <div class="col-lg-6 col-8" style="height: 48px; overflow: hidden;">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="row">
+                        <div class=" col-6">
+                          <span class="curr-room-text">Current Room</span>
+                        </div>
+                        <div class="col-3 col-sm-2 d-flex " style="position: relative; top: 5px;">
+                          <span class="curr-room-num-users"
+                          >Users <i class="fa fa-user" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                     
+                     
+
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-lg-6 col-4 search float-right"
+                  style="height: 48px; position: relative; overflow: hidden;"
+                >
+                  <span class="glyphicon glyphicon-search"></span>
+                  <input
+                    type="text"
+                    class="float-right mr-1 mt-2 form-control"
+                    id="search-box"
+                    placeholder="Search"
+                  />
+                </div>
+                <div class="col-12 pr-0" style="height: calc(100% - 86px)">
+                  <ul
+                    id="messages"
+                    class="col-12 h-100 p-0 m-0"
+                    style="overflow-x: hidden"
+                  ></ul>
+                </div>
+                <div class="col-12 message-form" style="height: 38px">
+                  <form id="user-input" class="ml-3 mr-3 p-0">
+                    <div class="row">
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          id="user-message-input"
+                          class="form-control"
+                          placeholder="Enter your message"
+                        />
+                        <div class="input-group-append">
+                          <button
+                            class="btn btn-outline-secondary"
+                            type="submit"
+                          >
+                            Send
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
               </div>
-              <!-- <div class="col-sm-2">
-                              <input class="btn btn-primary" type="submit" value="send" />
-                          </div> -->
-            </form>
+            </div>
           </div>
-          <ul
-            id="messages"
-            class="col-sm-12 h-100"
-            style="height: calc(100% - 94px); overflow-x: hidden"
-          ></ul>
+          <!--  <div class="row h-100">
+            <div class="chat-panel col-12">
+
+              <div class="room-header row col-6">
+                <div class="col-sm-6">
+                  <span class="curr-room-text">Current Room</span>
+                  <span class="curr-room-num-users"
+                    >Users <span class="glyphicon glyphicon-user"></span
+                  ></span>
+                </div>
+                <div class="col-sm-3 search pull-right">
+                  <span class="glyphicon glyphicon-search"></span>
+                  <input type="text" id="search-box" placeholder="Search" />
+                </div>
+              </div>
+
+
+              <div class="message-form">
+                <form id="user-input">
+                  <div class="col-sm-12">
+                    <input
+                      id="user-message-input"
+                      type="text"
+                      placeholder="Enter your message"
+                    />
+                  </div>
+                  <div class="col-sm-2">
+                    <input class="btn btn-primary" type="submit" value="send" />
+                  </div>
+                </form>
+              </div>
+              <ul
+                id="messages"
+                class="col-sm-12"
+                style="height: calc(100% - 94px); overflow-x: hidden"
+              ></ul>
+            </div>
+          </div>-->
         </div>
       </div>
     </div>
+    <!-- <div class="container-fluid">
+      <div class="row" style="flex-wrap: unset">
+        <div class="col-md-2 col-sm-12 col-12">
+          <div class="row">
+            <div class="col-sm-4 col-4 namespaces">
+              <div class="namespace" ns="/wiki">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/103px-Wikipedia-logo-v2.svg.png"
+                />
+              </div>
+              <div class="namespace" ns="/mozilla">
+                <img
+                  src="https://www.mozilla.org/media/img/logos/firefox/logo-quantum.9c5e96634f92.png"
+                />
+              </div>
+              <div class="namespace" ns="/linux">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png"
+                />
+              </div>
+            </div>
+            <div class="col-sm-8 col-8 rooms">
+              <h3>Rooms</h3>
+              <ul class="room-list"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10 col-sm-12 col-12">
+          <div class="row">
+            <div class="chat-panel col-12">
+              <div class="room-header row col-6">
+                <div class="col-sm-6">
+                  <span class="curr-room-text">Current Room</span>
+                  <span class="curr-room-num-users"
+                    >Users <span class="glyphicon glyphicon-user"></span
+                  ></span>
+                </div>
+                <div class="col-sm-3 search pull-right">
+                  <span class="glyphicon glyphicon-search"></span>
+                  <input type="text" id="search-box" placeholder="Search" />
+                </div>
+              </div>
+              <div class="message-form">
+                <form id="user-input">
+                  <div class="col-sm-12">
+                    <input
+                      id="user-message-input"
+                      type="text"
+                      placeholder="Enter your message"
+                    />
+                  </div>
+                 <div class="col-sm-2">
+                                  <input class="btn btn-primary" type="submit" value="send" />
+                              </div> 
+                </form>
+              </div>
+              <ul
+                id="messages"
+                class="col-sm-12 h-100"
+                style="height: calc(100% - 94px); overflow-x: hidden"
+              ></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/scripts.js"></script>

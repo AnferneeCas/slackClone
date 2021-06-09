@@ -81,6 +81,14 @@ namespaces.forEach((namespace) => {
   });
 });
 
+setInterval(() => {
+  namespaces.forEach((namespace) => {
+    namespace.rooms.forEach((room) => {
+      room.clearHistory();
+    });
+  });
+}, 86400000);
+
 function updateUsersInRoom(namespace, roomToJoin) {
   io.of(namespace.endpoint)
     .in(roomToJoin)

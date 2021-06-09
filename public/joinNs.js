@@ -12,9 +12,9 @@ function joinNs(endpoint) {
       username,
     },
   });
-  console.log(endpoint, nsSocket);
 
   nsSocket.on("nsRoomLoad", function (nsRooms) {
+    console.log(nsRooms);
     let roomList = document.querySelector(".room-list");
     roomList.innerHTML = "";
     nsRooms.forEach((room) => {
@@ -24,7 +24,7 @@ function joinNs(endpoint) {
       } else {
         glyph = "globe";
       }
-      roomList.innerHTML += `<li class="room" > <span class="glyphicon glyphicon-${glyph}"></span>${room.roomtitle}</li>`;
+      roomList.innerHTML += `<li class="room col-md-12 col-3" > <span class="glyphicon glyphicon-${glyph}"></span>${room.roomtitle}</li>`;
     });
     let roomNodes = document.getElementsByClassName("room");
     Array.from(roomNodes).forEach((room) => {
@@ -67,13 +67,13 @@ function formSubmission(event) {
 function buildHTML(msg) {
   const convertedDate = new Date(msg.time).toLocaleDateString();
   const newHTML = `
-   <li class="message-wrapper">
-   <div class="user-image" >
+   <li class="message-wrapper mb-1" style="border-bottom:1px solid lightgrey">
+   <div class="user-image mr-2 d-flex justify-content-center align-items-center" >
    <img style="width:30px; height:30px" src="https://www.automotiveone.com/wp-content/uploads/2019/02/placeholder-user-image.jpg" />
 </div>
 <div class="user-message">
    <div class="user-name-time">${msg.username} <span>${convertedDate}</span></div>
    <div class="message-text">${msg.text}</div>
-</div>  </li>`;
+</div> <div> <hr></div>  </li> `;
   return newHTML;
 }
